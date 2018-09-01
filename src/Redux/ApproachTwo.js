@@ -1,10 +1,13 @@
 import { select, call, put, take, fork, all } from "redux-saga/effects";
-import getUsersFromApi from "../API";
+import getUsers from "../API";
 
 /**
  * Approach 2 using take and fork 
  */
 
+/**
+ * Root watcher saga, watching parallelly using all and forking multiple watchers at the same time.
+ */
 export function* rootSaga() {
   yield all([
     fork(watchGetDataRequest),
@@ -12,6 +15,10 @@ export function* rootSaga() {
   ])
 }
 
+/**
+ * Fork is used to create non-blocking tasks,
+ * wherein we can do some other stuff while the task is getting executed
+ */
 function* watchGetDataRequest() {
   while (true) {
     yield take('GET_DATA_REQUEST');
@@ -35,9 +42,10 @@ function* loggerGenerator(action) {
 }
 
 // worker saga //
+// Call causes a blocking effect, just like apply //
 function* WorkerSaga() {
   try {
-    const response = yield call(getUsersFromApi);
+    const response = yield call(getUsers);
     const usersArray = response.data;
     yield put({
       type: 'GET_DATA_SUCCESS',

@@ -1,9 +1,9 @@
 import { takeLatest, takeEvery, select, call, put } from "redux-saga/effects";
-import getUsersFromApi from "../API";
+import getUsers from "../API";
 
 
 /**
- * Aproach 1 using high-level API's (Helper Effects)
+ * Aproach 1 using high-level API's (Helper Effects) and simplyfied version of ApproachTwo.js
  */
 
 // Root watcher saga //
@@ -26,7 +26,7 @@ function* watchAndLog(action) {
 // worker saga //
 function* WorkerSaga() {
 	try {
-		const response = yield call(getUsersFromApi);
+		const response = yield call(getUsers);
 		const usersArray = response.data;
 		yield put({
 			type: 'GET_DATA_SUCCESS',

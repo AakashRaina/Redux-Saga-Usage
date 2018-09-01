@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
-import DataFetcherComponent from "./DataFetcherComponent";
+import Component from "./Component";
 
-class App extends Component {
+class App extends React.Component {
 	render() {
 		return (
 			<div className="App">
-				<DataFetcherComponent />
+				<Component />
 			</div>
 		);
 	}
